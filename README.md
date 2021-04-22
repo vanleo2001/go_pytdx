@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Pytdx - Python tdx数据接口
 
 [![Build Status](https://travis-ci.org/rainx/pytdx.svg?branch=master)](https://travis-ci.org/rainx/pytdx)
@@ -76,3 +77,6 @@ https://rainx.gitbooks.io/pytdx/content/pytdx_trade.html
 ## 其它
 
 欢迎对量化交易感兴趣的朋友互相交流，可以来我们的智矿社区看看 http://zhikuang.org
+=======
+# go_pytdx
+>>>>>>> e4bbe7e2793f044cf893f4c7bc8cd55bc77898e6
