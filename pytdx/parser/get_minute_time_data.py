@@ -11,7 +11,8 @@ class GetMinuteTimeData(BaseParser):
     def setParams(self, market, code):
         if type(code) is six.text_type:
             code = code.encode("utf-8")
-        pkg = bytearray.fromhex(u'0c 1b 08 00 01 01 0e 00 0e 00 1d 05')
+        # pkg = bytearray.fromhex(u'0c 1b 08 00 01 01 0e 00 0e 00 1d 05')
+		pkg = bytearray.fromhex(u'0c 01 08 00 01 01 0e 00 0e 00 37 05')
         pkg.extend(struct.pack("<H6sI", market, code, 0))
         self.send_pkg = pkg
 
@@ -57,14 +58,17 @@ Out[40]: (0, 18)
     def parseResponse(self, body_buf):
         pos = 0
         (num, ) = struct.unpack("<H", body_buf[:2])
-        last_price = 0
+        first_price = None
         pos += 4
         prices = []
         for i in range(num):
             price_raw, pos = get_price(body_buf, pos)
             reversed1, pos = get_price(body_buf, pos)
             vol, pos = get_price(body_buf, pos)
-            last_price = last_price + price_raw
+            if first_price is None:
+                first_price = last_price = price_raw
+            else:
+                last_price = first_price + price_raw
             price = OrderedDict(
                 [
                     ("price", float(last_price)/100),
