@@ -12,7 +12,7 @@ class GetMinuteTimeData(BaseParser):
         if type(code) is six.text_type:
             code = code.encode("utf-8")
         # pkg = bytearray.fromhex(u'0c 1b 08 00 01 01 0e 00 0e 00 1d 05')
-		pkg = bytearray.fromhex(u'0c 01 08 00 01 01 0e 00 0e 00 37 05')
+        pkg = bytearray.fromhex(u'0c 01 08 00 01 01 0e 00 0e 00 37 05')
         pkg.extend(struct.pack("<H6sI", market, code, 0))
         self.send_pkg = pkg
 
