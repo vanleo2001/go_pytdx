@@ -15,7 +15,8 @@ class GetHistoryTransactionData(BaseParser):
         if type(code) is six.text_type:
             code = code.encode("utf-8")
 
-        pkg = bytearray.fromhex(u'0c 01 30 01 00 01 12 00 12 00 b5 0f')
+        # pkg = bytearray.fromhex(u'0c 01 30 01 00 01 12 00 12 00 b5 0f')
+        pkg = bytearray.fromhex(u'0c 01 30 00 02 01 12 00 12 00 c6 0f')
         pkg.extend(struct.pack("<IH6sHH", date, market, code, start, count))
         self.send_pkg = pkg
 
@@ -37,6 +38,7 @@ class GetHistoryTransactionData(BaseParser):
 
             price_raw, pos = get_price(body_buf, pos)
             vol, pos = get_price(body_buf, pos)
+            num, pos = get_price(body_buf, pos)
             buyorsell, pos = get_price(body_buf, pos)
             _, pos = get_price(body_buf, pos)
 
@@ -47,6 +49,7 @@ class GetHistoryTransactionData(BaseParser):
                     ("time", "%02d:%02d" % (hour, minute)),
                     ("price", float(last_price)/100),
                     ("vol", vol),
+                    ("num", num),
                     ("buyorsell", buyorsell),
                 ]
             )
